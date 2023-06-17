@@ -8,6 +8,7 @@ import { auth, firestore, serverTimestamp } from "../../lib/firebase"
 import styles from '../../styles/Admin.module.css'
 import { toast } from "react-hot-toast"
 import Link from "next/link"
+import ImageUploader from "../../components/ImageUploader"
 
 export default function AdminPostEdit({}) {
   return (
@@ -77,6 +78,8 @@ function PostForm({ defaultValues, postRef, preview }) {
         </div>
       )}
       <div className={preview ? styles.hidden : styles.control}>
+        <ImageUploader />
+        
         <textarea className={styles.textarea} name="content" {...register('content', {
           maxLength: { value: 20000, message: 'Content is too long' },
           minLength: { value: 10, message: 'Content is too short' },
