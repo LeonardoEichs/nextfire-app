@@ -12,15 +12,14 @@ export async function getServerSideProps(context) {
     .where('published', '==', true)
     .orderBy('createdAt', 'desc')
     .limit(LIMIT)
-    .get()
 
-  if (!postsQuery.docs.length) {
+  const posts = (await postsQuery.get()).docs.map(postToJSON);
+
+  if (!posts.length) {
     return {
       props: { posts: [] }
     }
   }
-
-  const posts = (await postsQuery.get()).docs.map(postToJSON);
 
   return {
     props: { posts }
